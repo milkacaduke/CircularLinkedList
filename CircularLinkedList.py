@@ -10,8 +10,10 @@ class CircularSinglyLinkedList(object):
 		self.head = None
 		self.tail = None
 
+
 	def insert(self, data):
 		self.insert_front(data)
+
 
 	def insert_front(self, data):
 		if data is None:
@@ -27,7 +29,34 @@ class CircularSinglyLinkedList(object):
 			self.tail.next = new_node
 			self.head = new_node
 
+	def insert_last(self, data):
+		if data is None:
+			return
+
+		new_node = LLNode(data)
+		if self.head is None:
+			self.head = new_node
+			self.tail = new_node
+			self.tail.next = self.head
+		else:
+			# print("{}, {}".format(self.head.data, self.tail.data))
+			self.tail.next = new_node
+			new_node.next = self.head
+			self.tail = new_node
+			# print("self.tail.next: {}".format(self.tail.next.data))
+
 	def print_all(self):
+		if self.head is None:
+			return
+
+		cur_node = self.head
+		while cur_node:
+			print(cur_node.data, end=" ")
+			cur_node = cur_node.next
+			if cur_node == self.tail.next:
+				break
+
+	def print_all_pretty(self):
 		if self.head is None:
 			return
 
@@ -69,16 +98,22 @@ class CircularSinglyLinkedList(object):
 
 
 
-
 # main stuff
 cll = CircularSinglyLinkedList()
-cll.insert("A")
-cll.insert("B")
-cll.insert("C")
+# cll.insert("A")
+# cll.insert("B")
+# cll.insert("C")
 # cll.insert("D")
 # cll.insert("E")
-cll.print_all()
 
+cll.insert_last("A")
+cll.insert_front("A1")
+cll.insert_last("B")
+cll.insert_front("A2")
+cll.insert_last("C")
+cll.insert_last("D")
+
+cll.print_all_pretty()
 
 
 
